@@ -1,7 +1,24 @@
 {
-  "name": "let-rest-bundle",
+  "name": "letrest",
   "version": "0.0.1",
   "config": {},
   "devDependencies": {
-  }
+    "uw": "0.0.1"
+  },
+  "description": "Framework to really REST on your Rest.",
+  "main": "letrest public project, by fleet-studio",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://sminutoli@bitbucket.org/fleetstudio/letrest-build.git"
+  },
+  "keywords": [
+    "rest",
+    "letrest",
+    "fleet"
+  ],
+  "author": "mdellano",
+  "license": "ISC"
 }
