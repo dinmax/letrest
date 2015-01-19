@@ -1,8 +1,12 @@
 {
   "name": "letrest",
-  "version": "0.0.2",
+  "version": "0.0.2-2",
   "config": {},
   "dependencies": {
+    "body-parser": ">= 0.0.1",
+    "express": ">= 0.0.1",
+    "merge": ">= 0.0.1",
+    "path": ">= 0.0.1",
     "uw": "0.0.1"
   },
   "description": "Framework to really REST on your Rest.",
@@ -19,6 +23,13 @@
     "letrest",
     "fleet"
   ],
-  "author": "mdellano",
-  "license": "ISC"
+  "author": "mdellano <mariano.dellano@fleet-studio.com>",
+  "contributors": [
+    "sminutoli <sergio.minutoli@fleet-studio.com>"
+  ],
+  "license": "ISC",
+  "bug": {
+    "url": "https://bitbucket.org/fleetstudio/letrest-build/issues?status=new&status=open",
+    "email": "support@fleet-studio.com"
+  }
 }
