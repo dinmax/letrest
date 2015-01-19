@@ -2,7 +2,7 @@
   "name": "letrest",
   "version": "0.0.2",
   "config": {},
-  "devDependencies": {
+  "dependencies": {
     "uw": "0.0.1"
   },
   "description": "Framework to really REST on your Rest.",
