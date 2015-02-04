@@ -18,11 +18,10 @@ Framework to implement a full secured Rest service just using declarative JSON c
 
 ##Install
 
-Currently there is no support for NPM pagckage. We will add this support shortly.
+```bash
+npm install letrest
+```
 
-At the moment just copy the folder with all the contents inside your node_module folder
-
- 
 ##Config
 
 The config file should be in the upper folder of the node_modules.
@@ -39,6 +38,7 @@ The config file should be in the upper folder of the node_modules.
 
 This code it is a basic boilerplate of a Express server. We have added comments so you can easily add the framework to your code
 
+```javascript
 	var express    = require('express'); 		//We requre the package
 	var app        = express(); 				//We create the server
 	var bodyParser = require('body-parser');	//Body parser, now separated since 4.0
@@ -48,9 +48,7 @@ This code it is a basic boilerplate of a Express server. We have added comments 
 	// ROUTES FOR OUR API
 	// =============================================================================
 	var router = express.Router(); 				// get an instance of the express Router
-
-
-**	require('let-rest').config(app,router); **
-
+	require('letrest').config(app,router);
 	app.use('/api', router);					//We add a base to the URL for all request
 	app.listen(port);							//We start the server loop
+```
