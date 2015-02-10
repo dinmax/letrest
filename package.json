@@ -1,7 +1,17 @@
 {
   "name": "letrest",
-  "version": "0.0.5-2",
-  "config": {},
+  "version": "0.0.10",
+  "main": "index.js",
+  "config": {
+    "buildDir": "dist"
+  },
+  "scripts": {},
+  "author": "mdellano <mariano.dellano@fleet-studio.com>",
+  "contributors": [
+    "mgonzalez <matias.gonzalez@dinmax.com>",
+    "sminutoli <sergio.minutoli@fleet-studio.com>"
+  ],
+  "license": "",
   "dependencies": {
     "body-parser": "^1.10.1",
     "dotty": "0.0.2",
@@ -13,29 +23,17 @@
     "path": "^0.11.14",
     "q": "^1.1.2",
     "util": "^0.10.3",
-    "uw": "0.0.1"
+    "uw": "0.0.7"
   },
-  "description": "Framework to really REST on your Rest.",
-  "main": "letrest public project, by fleet-studio",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/dinmax/letrest"
-  },
-  "keywords": [
-    "rest",
-    "letrest",
-    "fleet"
-  ],
-  "author": "mdellano <mariano.dellano@fleet-studio.com>",
-  "contributors": [
-    "sminutoli <sergio.minutoli@fleet-studio.com>"
-  ],
-  "license": "ISC",
-  "bug": {
-    "url": "https://github.com/dinmax/letrest/issues",
-    "email": "support@fleet-studio.com"
+  "devDependencies": {
+    "grunt": "~0.4.1",
+    "grunt-contrib-clean": "^0.6.0",
+    "grunt-contrib-concat": "^0.5.0",
+    "grunt-contrib-copy": "^0.7.0",
+    "grunt-contrib-uglify": "^0.7.0",
+    "grunt-git": "^0.3.3",
+    "grunt-release": "^0.11.0",
+    "load-grunt-config": "^0.16.0",
+    "load-grunt-tasks": "^2.0.0"
   }
 }
