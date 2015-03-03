@@ -1,0 +1,113 @@
+<div class="fk" ng-controller="MeasureCtrl as Measure">
+  <div class="separator">
+    Measures
+  </div>
+
+  <!-- TABLE -->
+  <table>
+    <thead>
+      <tr>
+        <th>
+          Key
+        </th>
+        <th>
+          Attribute
+        </th>
+        <th>
+          Field
+        </th>
+        <th>
+          Actions
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr ng-repeat="(key, obj) in Measure.measures">
+        <td>
+          <a ng-click="Measure.select(obj, key)" href="">{{key}}</a>
+        </td>
+        <td>
+          <span>{{obj.attribute}}</span>
+        </td>
+        <td>
+          <span>{{obj.field}}</span>
+        </td>
+        <td>
+          <button class="btn btn-danger btn-xs" ng-click="Measure.remove(key)">Delete</button>
+        </td>
+      </tr>
+    </tbody>
+
+  </table>
+
+  <div class="bar" ng-if="!Measure.selection">
+    <input type="text" ng-model="newMeasure">
+    <button class="btn btn-sm btn-primary btn-add"
+            ng-click="Measure.add(newMeasure)"
+            ng-disabled="!newMeasure"
+            ><i class="glyphicon glyphicon-plus"></i>Add Measure</button>
+  </div>
+
+  <form ng-if="Measure.selection">
+    <!-- KEY -->
+    <div>
+      <label>Key</label>
+      <input type="text" ng-model="Measure.selection.key">
+      <a tooltip-html-unsafe="TODO.<br><b class='text-danger'>Mandatory</b>" href=""><i class="glyphicon glyphicon-question-sign"></i></a>
+    </div>
+    <!-- ATTRIBUTE -->
+    <div>
+      <label>Attribute</label>
+      <input type="text"  ng-model="Measure.selection.attribute" />
+      <a tooltip-html-unsafe="The alias of the field in the SQL query.<br><b class='text-danger'>Mandatory</b>" href=""><i class="glyphicon glyphicon-question-sign"></i></a>
+    </div>
+
+    <!-- FIELD -->
+    <div>
+      <label>Field</label>
+      <textarea  ng-model="Measure.selection.field"></textarea>
+      <a tooltip-html-unsafe="The operation to be performed.<br><b class='text-danger'>Mandatory</b>" href=""><i class="glyphicon glyphicon-question-sign"></i></a>
+
+      <div class="bar" ng-if="!Measure.useGenerator">
+        <label>&nbsp;</label>
+        <button class="btn btn-sm"
+                ng-click="Measure.useGenerator = true"
+                ></i>Use generator</button>
+      </div>
+
+      <!-- FIELD GENERATOR -->
+      <div ng-if="Measure.useGenerator" ng-init="generator={}" class="entityPanel fieldGenerator">
+        <div>
+          <label>Operation</label>
+          <select ng-model="generator.operation">
+            <option value="AVG">AVG</option>
+            <option value="COUNT">COUNT</option>
+            <option value="MAX">MAX</option>
+            <option value="MIN">MIX</option>
+            <option value="SUM">SUM</option>
+          </select>
+        </div>
+        <div>
+          <label>Distinct</label>
+          <input type="checkbox" ng-model="generator.distinct" />
+        </div>
+        <div>
+          <label>Table/Field</label>
+          <select ng-model="generator.table">
+            <option value="{{table.name}}" ng-repeat="table in Measure.tables">{{table.name}}</option>
+          </select>
+          <select ng-model="generator.field">
+            <option value="{{k}}" ng-selected="k==generator.field" ng-repeat="(k,o) in Measure.tables[generator.table].fields">{{k}}</option>
+          </select>
+        </div>
+        <pre>{{Measure.parseGenerator(generator)}}</pre>
+        <button class="btn btn-sm btn-info " ng-click="Measure.selection.field=Measure.parseGenerator(generator); Measure.useGenerator = false;"><i class="glyphicon glyphicon-ok"></i> Use value</button>
+      </div>
+
+    </div>
+  </form>
+  <div class="bar" ng-if="Measure.selection">
+    <button class="btn btn-sm btn-warning" ng-click="Measure.cancel()"><i class="glyphicon glyphicon-remove"></i> Cancel</button>
+    <button class="btn btn-sm btn-info " ng-click="Measure.save()"><i class="glyphicon glyphicon-ok"></i> Save</button>
+  </div>
+</div>

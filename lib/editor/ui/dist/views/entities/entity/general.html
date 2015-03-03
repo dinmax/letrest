@@ -1,0 +1,36 @@
+<form>
+  <div>
+    <label>Name</label>
+    <input type="text" ng-model="Entities.selection.name">
+  </div>
+  <div>
+    <label>Path</label>
+    <input type="text" ng-model="Entities.selection.path">
+  </div>
+  <div>
+    <label>Table</label>
+    <select ng-model="Entities.selection.table">
+      <option ng-repeat="obj in Entities.tables" value="{{obj.name}}">{{obj.name}}</option>
+    </select>
+  </div>
+  <div>
+    <label>PK</label>
+    <select ng-model="Entities.selection.pk">
+      <option ng-repeat="(k,obj) in Entities.tables[Entities.selection.table].fields" value="{{obj.name}}">{{obj.name}}</option>
+    </select>
+
+  </div>
+  <div>
+    <label>Weight</label>
+    <input type="text" ng-model="Entities.selection.weight">
+  </div>
+
+  <div class="btn-group">
+    <label class="btn btn-info btn-xs" ng-click="Entities.toggleService('all')" ng-model="Entities.serviceHelper.all" btn-checkbox>All</label>
+    <label class="btn btn-info btn-xs" ng-click="Entities.toggleService('get')" ng-model="Entities.serviceHelper.get" btn-checkbox>Get</label>
+    <label class="btn btn-info btn-xs" ng-click="Entities.toggleService('post')" ng-model="Entities.serviceHelper.post" btn-checkbox>Post</label>
+    <label class="btn btn-info btn-xs" ng-click="Entities.toggleService('put')" ng-model="Entities.serviceHelper.put" btn-checkbox>Put</label>
+    <label class="btn btn-info btn-xs" ng-click="Entities.toggleService('delete')" ng-model="Entities.serviceHelper.delete" btn-checkbox>Delete</label>
+  </div>
+
+</form>

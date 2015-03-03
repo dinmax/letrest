@@ -1,0 +1,151 @@
+<div class="fk" ng-controller="FKCtrl as FK">
+  <!-- HEADER -->
+  <div class="bar">
+    <button class="btn btn-sm btn-primary" ng-click="FK.create()"><i class="glyphicon glyphicon-plus"></i> Add Relation</button>
+  </div>
+  <!-- TABLE -->
+  <table>
+    <thead>
+      <tr>
+        <th>
+          Name
+        </th>
+        <th>
+          Relation
+        </th>
+        <th>
+          Field
+        </th>
+        <th>
+          Type
+        </th>
+        <th>
+          Value
+        </th>
+        <th>
+          Action
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+    <tr ng-repeat="(k,obj) in Entities.selection.fk">
+      <td>
+        <a ng-click="FK.select(k, Entities.selection.fk[k])" href="">{{k}}</a>
+      </td>
+      <td>
+        {{obj.relation}}
+      </td>
+      <td>
+        {{obj | renderFkField:Entities.selection.table.name }}
+      </td>
+      <td>
+        {{obj.type}}
+      </td>
+      <td>
+        {{obj.value}}
+      </td>
+      <td>
+        <button class="btn btn-danger btn-xs" ng-click="FK.remove(k)">Delete</button>
+      </td>
+    </tr>
+    </tbody>
+
+  </table>
+
+  <form name="FK.fkform" ng-if="FK.selection">
+    <!-- NAME -->
+    <div>
+      <label>Name</label>
+      <input type="text" ng-model="FK.selection.name" required custom-validation="FK.isNameUnique">
+      <a class="mandatory" tooltip-html-unsafe="Name of the relation, usually it is a unique descriptive name.<br><b class='text-danger'>Mandatory</b>" href=""><i class="glyphicon glyphicon-question-sign"></i></a>
+    </div>
+    <!-- TYPE -->
+    <div>
+      <label>Type</label>
+      <select ng-model="FK.selection.type">
+        <option value="url" default>url</option>
+        <option value="object">object</option>
+      </select>
+      <a class="mandatory" tooltip-html-unsafe="Type determines if the value used to insert or update should come from the OBJECT or from the URL.<br><b class='text-danger'>Mandatory</b>" href=""><i class="glyphicon glyphicon-question-sign"></i></a>
+    </div>
+    <div>
+      <label>Value</label>
+      <input type="text" ng-if="FK.selection.type !== 'object'" ng-model="FK.selection.value">
+      <select ng-model="FK.selection.value" ng-if="FK.selection.type === 'object'">
+        <option value="{{obj.attribute | mappingAttribute}}" default ng-repeat="obj in Entities.selection.mapping">{{obj.attribute | mappingAttribute }}</option>
+      </select>
+      <a tooltip-html-unsafe="TODO Doc.<br><b class='text-danger'>Mandatory</b>" href=""><i class="glyphicon glyphicon-question-sign"></i></a>
+    </div>
+    <!-- JOINTYPE -->
+    <div>
+      <label>Join</label>
+      <select ng-model="FK.selection.jointype">
+        <option value="INNER" default>INNER</option>
+        <option value="LEFT">LEFT</option>
+        <option value="RIGHT">RIGHT</option>
+      </select>
+      <a class="mandatory" tooltip-html-unsafe="This is the field to specify the join type. Default INNER.<br><b class='text-danger'>Mandatory</b>" href=""><i class="glyphicon glyphicon-question-sign"></i></a>
+    </div>
+    <!-- TABLE -->
+    <div>
+      <label>Table</label>
+      <select ng-model="FK.selection.table" required>
+        <option value="{{table.name}}" ng-repeat="table in Entities.tables" ng-selected="table.name===FK.selection.table" ng-if="Entities.selection.table != table.name">{{table.name}}</option>
+      </select>
+      <select ng-model="FK.selection.tablefield" ng-disabled="!FK.selection.table" required>
+        <option value="{{k}}" ng-repeat="(k,field) in Entities.tables[FK.selection.table].fields" ng-selected="k===FK.selection.tablefield">{{k}}</option>
+      </select>
+      <a class="mandatory" tooltip-html-unsafe="TODO DOC.<br><b class='text-danger'>Mandatory</b>" href=""><i class="glyphicon glyphicon-question-sign"></i></a>
+    </div>
+    <!-- COMPARATOR -->
+    <div>
+      <label>Comparator</label>
+      <select ng-model="FK.selection.comparator">
+        <option value="=" default>=</option>
+        <option value="<">&lt;</option>
+        <option value="<=">&lt;=</option>
+        <option value=">">&gt;</option>
+        <option value=">=">&gt;=</option>
+        <option value="like">like</option>
+        <option value="ilike">ilike</option>
+      </select>
+      <a
+        class="mandatory"
+        href=""
+        tooltip-html-unsafe="This is the comparator to use on the join. Default value is '='. ie: INNER JOIN Table on (Table.field <b>=</b> Entity.field).<br><b class='text-danger'>Mandatory</b>"
+      ><i class="glyphicon glyphicon-question-sign"></i></a>
+    </div>
+
+    <!-- SOURCE -->
+    <div>
+      <label>Source</label>
+      <select ng-model="FK.selection.source">
+        <option value="{{table.name}}" ng-repeat="table in Entities.tables" ng-if="FK.getSourceTables().indexOf(table.name) !== -1" ng-selected="table.name == FK.selection.source">{{table.name}}</option>
+      </select>
+      <select ng-model="FK.selection.field" ng-disabled="!FK.selection.source" required>
+        <option value="{{k}}" ng-repeat="(k,field) in Entities.tables[FK.selection.source].fields" ng-selected="k===FK.selection.field">{{k}}</option>
+      </select>
+      <a tooltip-html-unsafe="This field is used to change the default (Entity.table) on the join operation. For instance if you want to change the join to other table instead to be matched to the entity table.<br><b class='text-primary'>Optional</b>" href=""><i class="glyphicon glyphicon-question-sign"></i></a>
+    </div>
+    <!-- ALIAS -->
+    <div>
+      <label>Alias</label>
+      <input type="text" ng-model="FK.selection.alias">
+      <a tooltip-html-unsafe="This field is used to change the original table name for an alias. ie: INNER JOIN table as alias.<br><b class='text-primary'>Optional</b>" href=""><i class="glyphicon glyphicon-question-sign"></i></a>
+    </div>
+    <!-- SQL -->
+    <div>
+      <label>SQL</label>
+      <textarea  ng-model="FK.selection.sql"></textarea>
+      <a tooltip-html-unsafe="This attribute is for adding extra special security that come from the server.<br><br> You can add these special variables:<br><br><p style='text-align:left'><b class='text-warning'>#account_id#</b> Will be replaced by the sso session<br><b class='text-warning'>#account_nick#</b> Will be replaced by the session nick<br><b  class='text-warning'>#account_role#</b>Will be replaced by the session role<br><b  class='text-warning'>#account_weight#</b> Will be replaced by the session weight.<br><b  class='text-warning'>#value#</b> Will be replaced by the specified value.See Type.<br><br></p><b class='text-info'>Optional</b>" href=""><i class="glyphicon glyphicon-question-sign"></i></a>
+    </div>
+
+  </form>
+
+  <!-- FOOTER -->
+  <div class="bar" ng-if="FK.selection">
+    <button class="btn btn-sm btn-warning" ng-click="FK.cancel()"><i class="glyphicon glyphicon-remove"></i> Cancel</button>
+    <button class="btn btn-sm btn-info " ng-click="FK.save()" ng-disabled="!FK.fkform.$valid"><i class="glyphicon glyphicon-ok"></i> Save</button>
+  </div>
+
+</div>

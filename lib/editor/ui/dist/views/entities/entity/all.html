@@ -1,0 +1,40 @@
+<div style="margin: 15px">
+  <accordion ng-init="isFirstOpen=true" style="overflow: hidden">
+
+    <accordion-group is-open="isFirstOpen">
+      <accordion-heading><span class="glyphicon glyphicon-filter"></span> Filters</accordion-heading>
+      <ng-include src="'views/entities/entity/filter.html'"></ng-include>
+    </accordion-group>
+    <accordion-group ng-if="Entities.isTabSelected('all')">
+      <accordion-heading><span class="glyphicon glyphicon-sort"></span> Orders</accordion-heading>
+      <ng-include src="'views/entities/entity/order.html'"></ng-include>
+    </accordion-group>
+    <accordion-group ng-if="Entities.isTabSelected('all')">
+      <accordion-heading><span class="glyphicon glyphicon-dashboard"></span> Groups</accordion-heading>
+      <ng-include src="'views/entities/entity/group_dimension.html'"></ng-include>
+      <ng-include src="'views/entities/entity/group_measure.html'"></ng-include>
+    </accordion-group>
+    <!-- PRE and POST actions -->
+    <accordion-group ng-if="Entities.isTabSelected('all')">
+      <accordion-heading><span class="glyphicon glyphicon-transfer"></span> Pre & Post actions</accordion-heading>
+      <ng-include src="'views/entities/entity/pre-post-actions.html'"></ng-include>
+    </accordion-group>
+    <accordion-group ng-if="Entities.isTabSelected('get')">
+      <accordion-heading><span class="glyphicon glyphicon-transfer"></span> Pre & Post actions</accordion-heading>
+      <ng-include src="'views/entities/entity/pre-post-actions.html'"></ng-include>
+    </accordion-group>
+    <accordion-group ng-if="Entities.isTabSelected('post')">
+      <accordion-heading><span class="glyphicon glyphicon-transfer"></span> Pre & Post actions</accordion-heading>
+      <ng-include src="'views/entities/entity/pre-post-actions.html'"></ng-include>
+    </accordion-group>
+    <accordion-group ng-if="Entities.isTabSelected('put')">
+      <accordion-heading><span class="glyphicon glyphicon-transfer"></span> Pre & Post actions</accordion-heading>
+      <ng-include src="'views/entities/entity/pre-post-actions.html'"></ng-include>
+    </accordion-group>
+    <accordion-group ng-if="Entities.isTabSelected('delete')">
+      <accordion-heading><span class="glyphicon glyphicon-transfer"></span> Pre & Post actions</accordion-heading>
+      <ng-include src="'views/entities/entity/pre-post-actions.html'"></ng-include>
+    </accordion-group>
+
+  </accordion>
+</div>

@@ -1,0 +1,18 @@
+<div class="relations" ng-if="EntityWizard.tableHasRelations()">
+  <h1>Select the Relations</h1>
+  <h4 >The relations will come from the database definition. You should have defined the constraints on the database in
+    order to be able to use this feature.</h4>
+
+  <table>
+    <tr ng-repeat="(fkName, fk) in EntityWizard.newEntity.fk">
+      <td><input id="{{fk.value}}" type="checkbox" ng-change="EntityWizard.updateFk(fk)" ng-model="fk._selected"></td>
+      <td><label for="{{fk.value}}">{{fk.relation}}</label></td>
+    </tr>
+  </table>
+</div>
+
+<div class="relations" ng-if="!EntityWizard.tableHasRelations()">
+  <h1>This table has no relations</h1>
+  <h4>You can go next.</h4>
+</div>
+

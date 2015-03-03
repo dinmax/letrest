@@ -1,0 +1,96 @@
+<div class="fk" ng-controller="MappingCtrl as Mapping">
+  <!-- HEADER -->
+
+  <!-- TABLE -->
+  <table>
+    <thead>
+    <tr>
+      <th>
+        Attribute
+      </th>
+      <th>
+        Type
+      </th>
+      <th>
+        Field
+      </th>
+      <th>
+        External
+      </th>
+      <th>
+        Action
+      </th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr ng-repeat="obj in Entities.selection.mapping">
+      <td>
+        <a ng-click="Mapping.select($index, obj)" href="">{{obj.attribute}}</a>
+      </td>
+      <td>
+        {{obj.type||'string'}}
+      </td>
+      <td>
+        {{obj.field}}
+      </td>
+      <td>
+        {{obj.external?'Yes':'No'}}
+      </td>
+      <td>
+       <button class="btn btn-danger btn-xs" ng-click="Mapping.remove($index)">Delete</button>
+      </td>
+    </tr>
+    </tbody>
+
+  </table>
+
+  <div class="bar" ng-if="!Mapping.selection">
+    <button class="btn btn-sm btn-primary btn-add"
+            ng-click="Mapping.create()"
+            ><i class="glyphicon glyphicon-plus"></i>Add Mapping</button>
+  </div>
+
+  <form name="Mapping.form" ng-if="Mapping.selection">
+    <!-- ATTRIBUTE -->
+    <div>
+      <label>Attribute</label>
+      <input type="text" ng-model="Mapping.selection.attribute" ng-pattern="'[a-z0-9@^\s]*'" required custom-validation="Mapping.isNameUnique">
+      <a class="mandatory" tooltip-html-unsafe="Attribute is the way of representation to define the object graph. Instead of dot notation it uses the @ to indicate hierarchy. ie: account@name will create {account:{name:''}}.<br><b class='text-danger'>Mandatory</b>" href=""><i class="glyphicon glyphicon-question-sign"></i></a>
+    </div>
+    <!-- TYPE -->
+    <div>
+      <label>Type</label>
+      <select ng-model="Mapping.selection.type">
+        <option value="string">string</option>
+        <option value="number">number</option>
+        <option value="boolean">boolean</option>
+        <option value="date">date</option>
+        <option value="json">json</option>
+      </select>
+      <a tooltip-html-unsafe="Type determines the Javascript's type that will be represented on the object. This is important due it will guarantee the correct representation of the data on the client.<br><b class='text-info'>Optional</b>" href=""><i class="glyphicon glyphicon-question-sign"></i></a>
+    </div>
+    <!-- FIELD -->
+    <div>
+      <label>Field</label>
+      <select ng-model="Mapping.selection.table">
+        <option value="{{table.name}}" ng-selected="{{table.name==Mapping.selection.table}}" ng-repeat="table in Mapping.tables">{{table.name}}</option>
+      </select>
+      <select ng-model="Mapping.selection.tablefield">
+        <option value="{{k}}" ng-selected="{{k==Mapping.selection.tablefield}}" ng-repeat="(k,o) in Mapping.tables[Mapping.selection.table].fields">{{k}}</option>
+      </select>
+      <a class="mandatory" tooltip-html-unsafe="This is a composed field and will be generated automatically by the tool and translated to the format fieldName@tableOrAlias.<br><b class='text-danger'>Mandatory</b>" href=""><i class="glyphicon glyphicon-question-sign"></i></a>
+    </div>
+    <!-- EXTERNAL -->
+    <div>
+      <label>External</label>
+      <input type="checkbox" ng-model="Mapping.selection.external" >
+      <a class="mandatory" tooltip-html-unsafe="This will determine if this mapping should be used during and INSERT or UPDATE operation. Usually this fields are the ones related to PK and FK.<br><b class='text-danger'>Mandatory</b>" href=""><i class="glyphicon glyphicon-question-sign"></i></a>
+    </div>
+
+  </form>
+  <!-- FOOTER -->
+  <div class="bar" ng-if="Mapping.selection">
+    <button class="btn btn-sm btn-warning" ng-click="Mapping.cancel()"><i class="glyphicon glyphicon-remove"></i> Cancel</button>
+    <button class="btn btn-sm btn-info " ng-click="Mapping.save()" ng-disabled="!Mapping.form.$valid"><i class="glyphicon glyphicon-ok"></i> Save</button>
+  </div>
+</div>

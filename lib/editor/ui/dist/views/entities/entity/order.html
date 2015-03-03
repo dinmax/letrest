@@ -1,0 +1,93 @@
+<div class="fk" ng-controller="OrderCtrl as Order">
+    <!-- HEADER -->
+
+    <!-- TABLE -->
+    <table>
+        <thead>
+        <tr>
+            <th>
+                Key
+            </th>
+            <th>
+                Fields
+            </th>
+
+            <th>
+                Action
+            </th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="(k,v) in Order.orders">
+            <td>
+                <a ng-click="Order.select(k,v)" href="">{{k}}</a>
+            </td>
+            <td>
+              <ul class="tree" ng-if="Entities.isAList( Order.getFields(k,v) )">
+                <li>
+                  fields
+                  <ul>
+                    <li ng-repeat="item in Order.getFields(k,v)">{{item.raw}}</li>
+                  </ul>
+                </li>
+              </ul>
+              <span ng-if="!Entities.isAList( Order.getFields(k,v) )">{{v}}</span>
+            </td>
+
+            <td>
+                <button class="btn btn-danger btn-xs" ng-click="Order.removeOrder(k)">Delete</button>
+            </td>
+        </tr>
+        </tbody>
+
+    </table>
+
+    <div class="bar" ng-if="!Order.selection">
+      <input type="text" ng-model="newOrder">
+      <button class="btn btn-sm btn-primary btn-add"
+              ng-click="Order.addOrder(newOrder)"
+              ng-disabled="!newOrder"
+              ><i class="glyphicon glyphicon-plus"></i>Add Order</button>
+    </div>
+
+    <form ng-if="Order.selection">
+        <div class="separator">
+            General
+        </div>
+        <!-- KEY -->
+        <div>
+            <label>Key</label>
+            <input type="text" ng-model="Order.selection.key">
+            <a tooltip-html-unsafe="The key will be the identifier on the query string or the unique representation of the filter (See Source) when the request is made.<br><b class='text-danger'>Mandatory</b>" href=""><i class="glyphicon glyphicon-question-sign"></i></a>
+        </div>
+
+        <div class="separator">
+          Fields
+        </div>
+        <div ng-repeat="f in Order.selection.fields"  ng-class-odd="'odd'" ng-class-even="'even'" style="padding: 15px;margin: 15px">
+            <!-- FIELD -->
+            <div>
+                <label>Table/Field</label>
+                <select ng-model="f.table" custom-validation="Order.isFieldUnique">
+                    <option value="{{table.name}}" ng-selected="table.name==f.table" ng-repeat="table in Order.tables">{{table.name}}</option>
+                </select>
+                <select ng-model="f.field" custom-validation="Order.isFieldUnique">
+                    <option value="{{k}}" ng-selected="k==f.field" ng-repeat="(k,o) in Order.tables[f.table].fields">{{k}}</option>
+                </select>
+                <select ng-model="f.type">
+                  <option value="ASC" ng-selected="!f.type||f.type==='ASC'">ASC</option>
+                  <option value="DESC" ng-selected="f.type==='DESC'">DESC</option>
+                </select>
+                <a tooltip-html-unsafe="This is a composed field and will be generated automatically by the tool and translated to the format fieldName@tableOrAlias.<br><b class='text-danger'>Mandatory</b>" href=""><i class="glyphicon glyphicon-question-sign"></i></a>
+                <a ng-if="Order.selection.fields.length>1" href="" class="" ng-click="Order.removeField($index)"><i class="glyphicon glyphicon-remove text-danger"></i></a>
+                <a ng-if="$last" href="" class="" ng-click="Order.addField()"><i class="glyphicon glyphicon-plus text-success"></i></a>
+            </div>
+        </div>
+
+    </form>
+    <!-- FOOTER -->
+    <div class="bar" ng-if="Order.selection">
+        <button class="btn btn-sm btn-warning" ng-click="Order.cancel()"><i class="glyphicon glyphicon-remove"></i> Cancel</button>
+        <button class="btn btn-sm btn-info " ng-click="Order.save()" ng-disabled="!FK.fkform.$valid"><i class="glyphicon glyphicon-ok"></i> Save</button>
+    </div>
+</div>
