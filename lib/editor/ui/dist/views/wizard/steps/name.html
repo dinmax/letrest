@@ -9,6 +9,7 @@
     <div ng-if="EntityWizard.chooseName.inputPath.$invalid" class="alert alert-danger" role="alert">
       This path is taken, please choose another one
     </div>
+    <h4>Choose the minimum security-weight to use this endpoint: <input type="number" name="inputWeight" ng-model="EntityWizard.newEntity.weight" min="0" ></h4>
   </form>
   <div class="preview" ng-init="EntityWizard.initNaming()">
     <h5>Preview</h5>
