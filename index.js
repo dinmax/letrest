@@ -1,1 +1,1 @@
-/*! letrest - v0.0.23 - 2015-05-04 */module.exports.APP=require("./lib/Service.js"),module.exports.EDITOR=require("./lib/editor/index.js");
+/*! letrest - v0.0.24 - 2015-05-04 */module.exports.APP=require("./lib/Service.js"),module.exports.EDITOR=require("./lib/editor/index.js");

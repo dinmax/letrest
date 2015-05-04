@@ -12,8 +12,12 @@
     <h4>Choose the minimum security-weight to use this endpoint: <input type="number" name="inputWeight" ng-model="EntityWizard.newEntity.weight" min="0" ></h4>
   </form>
   <div class="preview" ng-init="EntityWizard.initNaming()">
-    <h5>Preview</h5>
+    <h5>config/entities/{{EntityWizard.newEntity.name}}.json</h5>
     <pre>{{EntityWizard.getCleanEntity() | json}}</pre>
+  </div>
+  <div class="preview" ng-init="EntityWizard.initNaming()">
+    <h5>config/schema/{{EntityWizard.newEntity.name}}.json</h5>
+    <pre>{{EntityWizard.getSchema() | json}}</pre>
   </div>
 </div>
 
