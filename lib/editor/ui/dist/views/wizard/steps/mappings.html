@@ -12,28 +12,20 @@
           <tr>
             <th class="check"><input ng-change="EntityWizard.toggleMappings()" ng-model="EntityWizard.toggleMappingsHelper" type="checkbox"></th>
             <th class="name">Name</th>
-            <th>Attribute</th>
           </tr>
         </thead>
         <tbody>
           <tr ng-repeat="mapping in subset">
             <td class="check">
-              <input id="mapping{{$index}}" type="checkbox" ng-model="mapping._selected">
+              <input id="{{mapping.field}}" type="checkbox" ng-model="mapping._selected">
             </td>
             <td class="field">
-              <label for="mapping{{$index}}">{{mapping.field}}</label>
-            </td>
-            <td class="attribute">
-              <input type="text" ng-disabled="!mapping._selected"
-                     ng-model="mapping.attribute">
+              <label for="{{mapping.field}}">{{mapping.field}}</label>
             </td>
           </tr>
         </tbody>
       </table>
     </div>
   </div>
-  <div class="preview">
-    <h5>Response Preview</h5>
-    <pre>{{EntityWizard.getMapper() | json}}</pre>
-  </div>
+
 </div>
