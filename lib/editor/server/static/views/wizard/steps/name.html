@@ -1,0 +1,23 @@
+<div class="naming">
+  <form name="EntityWizard.chooseName">
+    <h1>You´re almost there!</h1>
+    <h4>Choose a pretty name for your entity <input type="text" name="inputName" ng-keyup="EntityWizard.updatePath()" ng-model="EntityWizard.newEntity.name" custom-validation="EntityWizard.isNameValid"></h4>
+    <h4>Choose a path for your endpoint: <input type="text" name="inputPath" ng-model="EntityWizard.newEntity.path" custom-validation="EntityWizard.isPathValid"></h4>
+    <div ng-if="EntityWizard.chooseName.inputName.$invalid" class="alert alert-danger" role="alert">
+      This name is taken, please choose another one
+    </div>
+    <div ng-if="EntityWizard.chooseName.inputPath.$invalid" class="alert alert-danger" role="alert">
+      This path is taken, please choose another one
+    </div>
+    <h4>Choose the minimum security-weight to use this endpoint: <input type="number" name="inputWeight" ng-model="EntityWizard.newEntity.weight" min="0" ></h4>
+  </form>
+  <div class="preview" ng-init="EntityWizard.initNaming()">
+    <h5>config/entities/{{EntityWizard.newEntity.name}}.json</h5>
+    <pre>{{EntityWizard.getCleanEntity() | json}}</pre>
+  </div>
+  <div class="preview" ng-init="EntityWizard.initNaming()">
+    <h5>config/schema/{{EntityWizard.newEntity.name}}.json</h5>
+    <pre>{{EntityWizard.getSchema() | json}}</pre>
+  </div>
+</div>
+

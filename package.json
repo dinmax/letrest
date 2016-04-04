@@ -1,6 +1,6 @@
 {
   "name": "letrest",
-  "version": "0.0.37",
+  "version": "0.0.38",
   "main": "index.js",
   "config": {
     "buildDir": "dist"
@@ -13,6 +13,7 @@
   ],
   "license": "",
   "dependencies": {
+    "bluebird": "^3.2.2",
     "body-parser": "^1.10.1",
     "dotty": "0.0.2",
     "express": "^4.11.0",
