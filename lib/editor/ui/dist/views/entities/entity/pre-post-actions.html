@@ -1,52 +1,61 @@
 <div class="fk" ng-controller="PrePostActionsCtrl as Actions">
 
-  <form>
-    <div class="separator">
-      Pre action
+  <form name="Actions.form">
+
+    <div class="container-fluid">
+    <div class="row">
+      <div class="col-xs-12">
+        <div class="separator">
+          Pre action
+        </div>
+      </div>
     </div>
 
     <!-- SOURCE -->
-    <div>
-      <label>File</label>
-      <select ng-change="Actions.save()" ng-model="Actions.pre.file">
+    <div class="row">
+      <label class="control-label col-xs-1">File</label>
+      <select class="control col-xs-5" ng-change="Actions.save()" ng-model="Actions.pre.file">
         <option value="">No Action</option>
         <option ng-repeat="file in Actions.files" ng-selected="file.name===Actions.pre.file" value="{{file.name}}">{{file.name}}</option>
       </select>
-      <a tooltip-html-unsafe="The file holding the method to be executed before the data is processed server side.<br><b class='text-info'>Optional</b>"
+      <a style="font-size: 20px" uib-tooltip-html="'The file holding the method to be executed before the data is processed server side.<br><b class=\'text-info\'>Optional</b>'"
          href=""><i class="glyphicon glyphicon-question-sign"></i></a>
     </div>
     <!-- TYPE -->
-    <div>
-      <label>Method</label>
-      <select ng-change="Actions.save()" ng-model="Actions.pre.method">
+    <div class="row">
+      <label class="control-label col-xs-1">Method</label>
+      <select class="control col-xs-5" ng-change="Actions.save()" ng-model="Actions.pre.method">
         <option ng-repeat="method in Actions.getMethods(Actions.pre.file)" ng-selected="method===Actions.pre.method" value="{{method}}">{{method}}</option>
       </select>
-      <a tooltip-html-unsafe="The method to be executed before the data is processed server side.<br><b class='text-info'>Optional</b>"
+      <a style="font-size: 20px" uib-tooltip-html="'The method to be executed before the data is processed server side.<br><b class=\'text-info\'>Optional</b>'"
          href=""><i class="glyphicon glyphicon-question-sign"></i></a>
     </div>
-
-    <div class="separator">
-      Post action
+    <div class="row">
+      <div class="col-xs-12">
+        <div class="separator">
+          Post action
+        </div>
+      </div>
     </div>
-
     <!-- SOURCE -->
-    <div>
-      <label>File</label>
-      <select ng-change="Actions.save()"  ng-model="Actions.post.file">
+    <div class="row">
+      <label class="control-label col-xs-1">File</label>
+      <select class="control col-xs-5" ng-change="Actions.save()"  ng-model="Actions.post.file">
         <option value="">No Action</option>
         <option ng-repeat="file in Actions.files" ng-selected="file.name===Actions.post.file" value="{{file.name}}">{{file.name}}</option>
       </select>
-      <a tooltip-html-unsafe="The file holding the method to be executed before server response.<br><b class='text-info'>Optional</b>"
+      <a  style="font-size: 20px" uib-tooltip-html="'The file holding the method to be executed before server response.<br><b class=\'text-info\'>Optional</b>'"
          href=""><i class="glyphicon glyphicon-question-sign"></i></a>
     </div>
     <!-- TYPE -->
-    <div>
-      <label>Method</label>
-      <select ng-change="Actions.save()" ng-model="Actions.post.method">
+    <div class="row">
+      <label class="control-label col-xs-1">Method</label>
+      <select class="control col-xs-5" ng-change="Actions.save()" ng-model="Actions.post.method">
         <option ng-repeat="method in Actions.getMethods(Actions.post.file)" ng-selected="method===Actions.post.method" value="{{method}}">{{method}}</option>
       </select>
-      <a tooltip-html-unsafe="The method to be executed before the data before server response.<br><b class='text-info'>Optional</b>"
+      <a  style="font-size: 20px" uib-tooltip-html="'The method to be executed before the data before server response.<br><b class=\'text-info\'>Optional</b>'"
          href=""><i class="glyphicon glyphicon-question-sign"></i></a>
+    </div>
     </div>
 
   </form>

@@ -4,7 +4,7 @@
   <div class="selection">
     <input type="search" placeholder="Search" ng-model="EntityWizard.search"><i class="glyphicon glyphicon-search"></i>
 
-    <div class="list">
+    <div class="list" style="color: white">
       <ul>
         <li ng-repeat="key in EntityWizard.toArray(EntityWizard.tables) | filter:EntityWizard.search"
             ng-init="table=EntityWizard.tables[key]"
@@ -15,7 +15,7 @@
     </div>
   </div>
 
-  <div class="fields" ng-if="EntityWizard.newEntity!=null">
+  <div class="fields" ng-if="EntityWizard.newEntity!=null" style="color: white">
     <ul>
       <li ng-repeat="field in EntityWizard.newEntity._raw.fields">
         <label>{{field.pk?'PK':field.fk?'FK':''}}</label>{{field.name}}

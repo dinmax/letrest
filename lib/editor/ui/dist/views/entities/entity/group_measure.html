@@ -2,7 +2,14 @@
   <div class="separator">
     Measures
   </div>
-
+ <!-- HEADER -->
+  <div class="bar" ng-if="!Measure.selection">
+    <input type="text" ng-model="newMeasure">
+    <button class="btn btn-sm btn-primary btn-add"
+            ng-click="Measure.add(newMeasure)"
+            ng-disabled="!newMeasure"
+      ><i class="glyphicon glyphicon-plus"></i>Add Measure</button>
+  </div>
   <!-- TABLE -->
   <table>
     <thead>
@@ -40,13 +47,7 @@
 
   </table>
 
-  <div class="bar" ng-if="!Measure.selection">
-    <input type="text" ng-model="newMeasure">
-    <button class="btn btn-sm btn-primary btn-add"
-            ng-click="Measure.add(newMeasure)"
-            ng-disabled="!newMeasure"
-            ><i class="glyphicon glyphicon-plus"></i>Add Measure</button>
-  </div>
+
 
   <form ng-if="Measure.selection">
     <!-- KEY -->

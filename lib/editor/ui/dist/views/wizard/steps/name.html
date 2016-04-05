@@ -1,8 +1,10 @@
 <div class="naming">
   <form name="EntityWizard.chooseName">
     <h1>You´re almost there!</h1>
-    <h4>Choose a pretty name for your entity <input type="text" name="inputName" ng-keyup="EntityWizard.updatePath()" ng-model="EntityWizard.newEntity.name" custom-validation="EntityWizard.isNameValid"></h4>
-    <h4>Choose a path for your endpoint: <input type="text" name="inputPath" ng-model="EntityWizard.newEntity.path" custom-validation="EntityWizard.isPathValid"></h4>
+    <h4>Choose a pretty name for your entity
+      <input type="text" name="inputName" ng-keyup="EntityWizard.updatePath()" ng-model="EntityWizard.newEntity.name" custom-validation="EntityWizard.isNameValid" required>
+    </h4>
+    <h4>Choose a path for your endpoint: <input type="text" name="inputPath" ng-model="EntityWizard.newEntity.path" custom-validation="EntityWizard.isPathValid" required></h4>
     <div ng-if="EntityWizard.chooseName.inputName.$invalid" class="alert alert-danger" role="alert">
       This name is taken, please choose another one
     </div>

@@ -1,7 +1,13 @@
 
 <div class="fk" ng-controller="FilterCtrl as Filter">
     <!-- HEADER -->
-
+    <div class="bar" ng-if="!Filter.selection">
+      <input class="control"  type="text" ng-model="newFilter">
+      <button class="btn btn-sm btn-primary btn-add"
+              ng-click="Filter.addFilter(newFilter)"
+              ng-disabled="!newFilter"
+        ><i class="glyphicon glyphicon-plus"></i>Add Filter</button>
+    </div>
     <!-- TABLE -->
     <table>
         <thead>
@@ -61,92 +67,86 @@
 
     </table>
 
-  <div class="bar" ng-if="!Filter.selection">
-    <input type="text" ng-model="newFilter">
-    <button class="btn btn-sm btn-primary btn-add"
-            ng-click="Filter.addFilter(newFilter)"
-            ng-disabled="!newFilter"
-            ><i class="glyphicon glyphicon-plus"></i>Add Filter</button>
-  </div>
 
-    <form ng-if="Filter.selection">
+
+    <form ng-if="Filter.selection" class="padding-bottom-40">
         <div class="separator">
             General
         </div>
         <!-- KEY -->
-        <div>
-            <label>Key</label>
-            <input type="text" ng-model="Filter.selection.key">
-            <a tooltip-html-unsafe="The key will be the indentifier on the querystring or the unique representation of the filter (See Source) when the rquest is made.<br><b class='text-danger'>Mandatory</b>" href=""><i class="glyphicon glyphicon-question-sign"></i></a>
+        <div style="margin-left: 15px">
+            <label class="control-label">Key</label>
+            <input class="control"  type="text" ng-model="Filter.selection.key">
+            <a style="font-size:20px" uib-tooltip-html="'The key will be the indentifier on the querystring or the unique representation of the filter (See Source) when the rquest is made.<br><b class=\'text-danger\'>Mandatory</b>'" href=""><i class="glyphicon glyphicon-question-sign"></i></a>
         </div>
 
         <!-- SOURCE -->
-        <div>
-            <label>Source</label>
-            <select ng-model="Filter.selection.source">
+      <div style="margin-left: 15px">
+            <label class="control-label">Source</label>
+            <select class="control"  class="control" ng-model="Filter.selection.source">
                 <option value="path">path</option>
                 <option value="url">url</option>
                 <option value="sql">sql</option>
                 <option value="security">security</option>
             </select>
-            <a tooltip-html-unsafe="Source determines the origin of the value to filter, URL represents that comes from the querystring, PATH represents a value extracted from the url, SQL represents a value that is generated on the database, SECURITY represents a value TODO.<br><b class='text-danger'>Mandatory</b>" href=""><i class="glyphicon glyphicon-question-sign"></i></a>
+            <a style="font-size:20px" uib-tooltip-html="'Source determines the origin of the value to filter, URL represents that comes from the querystring, PATH represents a value extracted from the url, SQL represents a value that is generated on the database, SECURITY represents a value TODO.<br><b class=\'text-danger\'>Mandatory</b>'" href=""><i class="glyphicon glyphicon-question-sign"></i></a>
         </div>
         <!-- TYPE -->
-        <div>
-            <label>Type</label>
-            <select ng-model="Filter.selection.type">
+      <div style="margin-left: 15px">
+            <label class="control-label">Type</label>
+            <select class="control"  ng-model="Filter.selection.type">
                 <option value="string">string</option>
                 <option value="number">number</option>
                 <option value="boolean">boolean</option>
                 <option value="date">date</option>
                 <option value="date">datetime</option>
             </select>
-            <a tooltip-html-unsafe="Type determines how the parameter should be formated before send it to the Database. Default value is 'string'.<br><b class='text-info'>Optional</b>" href=""><i class="glyphicon glyphicon-question-sign"></i></a>
+            <a style="font-size:20px" uib-tooltip-html="'Type determines how the parameter should be formated before send it to the Database. Default value is \'string\'.<br><b class=\'text-info\'>Optional</b>'" href=""><i class="glyphicon glyphicon-question-sign"></i></a>
         </div>
         <div class="separator">
            Fields to be filtered
         </div>
 
-        <div ng-repeat="f in Filter.selection.fields"  ng-class-odd="'odd'" ng-class-even="'even'" style="padding: 15px;margin: 15px">
+        <div ng-repeat="f in Filter.selection.fields"  style="padding: 15px;margin: 15px">
           <!-- FIELD -->
             <div>
-                <label>Table/Field</label>
-                <select ng-model="f.table">
+                <label class="control-label">Table/Field</label>
+                <select class="control"  ng-model="f.table">
                     <option value="{{table.name}}" ng-selected="table.name==f.table" ng-repeat="table in Filter.tables">{{table.name}}</option>
                 </select>
-                <select ng-model="f.field">
+                <select class="control"  ng-model="f.field">
                     <option value="{{k}}" ng-selected="k==f.field" ng-repeat="(k,o) in Filter.tables[f.table].fields">{{k}}</option>
                 </select>
-                <a tooltip-html-unsafe="This is a composed field and will be generated automatically by the tool and translated to the format fieldName@tableOrAlias.<br><b class='text-danger'>Mandatory</b>" href=""><i class="glyphicon glyphicon-question-sign"></i></a>
-                <a ng-if="Filter.selection.fields.length>1" href="" class="" ng-click="Filter.removeField($index)"><i class="glyphicon glyphicon-remove text-danger"></i></a>
-                <a ng-if="$last" href="" class="" ng-click="Filter.addField()"><i class="glyphicon glyphicon-plus text-success"></i></a>
+                <a style="font-size: 20px;" style="font-size:20px" uib-tooltip-html="'This is a composed field and will be generated automatically by the tool and translated to the format fieldName@tableOrAlias.<br><b class=\'text-danger\'>Mandatory</b>'" href=""><i class="glyphicon glyphicon-question-sign"></i></a>
+                <a style="font-size: 20px" ng-if="Filter.selection.fields.length>1" href="" class="" ng-click="Filter.removeField($index)"><i class="glyphicon glyphicon-remove text-danger"></i></a>
+                <a style="font-size: 20px" ng-if="$last" href="" class="" ng-click="Filter.addField()"><i class="glyphicon glyphicon-plus text-success"></i></a>
             </div>
             <!-- VALUE -->
             <div>
-                <label>Value</label>
+                <label style="vertical-align: top" class="control-label">Value</label>
                 <textarea  ng-model="Filter.selection.values[$index]" ></textarea>
-                <a tooltip-html-unsafe="This will be the default value when the filter is not specified.<br><b class='text-danger'>Mandatory</b>" href=""><i class="glyphicon glyphicon-question-sign"></i></a>
+                <a style="vertical-align: top;font-size:20px" uib-tooltip-html="'This will be the default value when the filter is not specified.<br><b class=\'text-danger\'>Mandatory</b>'" href=""><i class="glyphicon glyphicon-question-sign"></i></a>
             </div>
         </div>
         <div class="separator">
             Conditions
         </div>
         <!-- PREFIX -->
-        <div>
-            <label>Prefix</label>
-            <input type="text" ng-model="Filter.selection.prefix" >
-            <a tooltip-html-unsafe="This will add a prefix to the specified value. For instance it is very common to be used with '%' to express wildcards on the query..<br><b class='text-info'>Optional</b>" href=""><i class="glyphicon glyphicon-question-sign"></i></a>
+        <div style="margin-left: 15px">
+            <label class="control-label">Prefix</label>
+            <input class="control"  type="text" ng-model="Filter.selection.prefix" >
+            <a style="font-size:20px" uib-tooltip-html="'This will add a prefix to the specified value. For instance it is very common to be used with \'%\' to express wildcards on the query..<br><b class=\'text-info\'>Optional</b>'" href=""><i class="glyphicon glyphicon-question-sign"></i></a>
         </div>
         <!-- SUFFIX -->
-        <div>
-            <label>Suffix</label>
-            <input type="text" ng-model="Filter.selection.suffix" >
-            <a tooltip-html-unsafe="This will add a prefix to the specified value. For instance it is very common to be used with '%' to express wildcards on the query..<br><b class='text-info'>Optional</b>" href=""><i class="glyphicon glyphicon-question-sign"></i></a>
+        <div style="margin-left: 15px">
+            <label class="control-label">Suffix</label>
+            <input class="control"  type="text" ng-model="Filter.selection.suffix" >
+            <a style="font-size:20px" uib-tooltip-html="'This will add a prefix to the specified value. For instance it is very common to be used with \'%\' to express wildcards on the query..<br><b class=\'text-info\'>Optional</b>'" href=""><i class="glyphicon glyphicon-question-sign"></i></a>
         </div>
         <!-- COMPARATOR -->
-        <div>
-            <label>Comparator</label>
-            <select ng-model="Filter.selection.comparator">
+         <div style="margin-left: 15px">
+            <label class="control-label">Comparator</label>
+            <select class="control"  ng-model="Filter.selection.comparator">
                 <option default value="=">=</option>
                 <option value="<">&lt;</option>
                 <option value="<=">&lt;=</option>
@@ -155,13 +155,15 @@
                 <option value="like">like</option>
                 <option value="ilike">ilike</option>
             </select>
-            <a tooltip-html-unsafe="This is the comparator to use on the join. Default value is '='. ie: INNER JOIN Table on (Table.field <b>=</b> Entity.field).<br><b class='text-danger'>Option</b>" href=""><i class="glyphicon glyphicon-question-sign"></i></a>
+            <a style="font-size:20px" uib-tooltip-html="'This is the comparator to use on the join. Default value is \'=\'. ie: INNER JOIN Table on (Table.field <b>=</b> Entity.field).<br><b class=\'text-danger\'>Option</b>'" href=""><i class="glyphicon glyphicon-question-sign"></i></a>
         </div>
+      <!-- FOOTER -->
+      <div class="bar pull-right" ng-if="Filter.selection">
+
+        <button class="btn btn-sm btn-info " ng-click="Filter.save()"><i class="glyphicon glyphicon-ok"></i> Save</button>
+        <button class="btn btn-sm btn-warning" ng-click="Filter.cancel()"><i class="glyphicon glyphicon-remove"></i> Cancel</button>
+      </div>
 
     </form>
-    <!-- FOOTER -->
-    <div class="bar" ng-if="Filter.selection">
-        <button class="btn btn-sm btn-warning" ng-click="Filter.cancel()"><i class="glyphicon glyphicon-remove"></i> Cancel</button>
-        <button class="btn btn-sm btn-info " ng-click="Filter.save()"><i class="glyphicon glyphicon-ok"></i> Save</button>
-    </div>
+
 </div>
