@@ -1,6 +1,6 @@
 {
   "name": "letrest",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "main": "index.js",
   "config": {
     "buildDir": "dist"
@@ -25,9 +25,8 @@
     "q": "^1.1.2",
     "util": "^0.10.3",
     "uw": "0.0.x",
-    "uw-log": "*",
     "uw-db": "*",
-    "uw-db-postgresql": "*"
+    "uw-log": "*"
   },
   "devDependencies": {
     "grunt": "~0.4.1",
@@ -38,6 +37,8 @@
     "grunt-git": "^0.3.3",
     "grunt-release": "^0.11.0",
     "load-grunt-config": "^0.16.0",
-    "load-grunt-tasks": "^2.0.0"
+    "load-grunt-tasks": "^2.0.0",
+    "uw-db-postgresql": "*",
+    "uw-db-sqlite": "*"
   }
 }
