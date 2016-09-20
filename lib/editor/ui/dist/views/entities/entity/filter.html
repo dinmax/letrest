@@ -32,7 +32,7 @@
         <tbody>
         <tr ng-repeat="obj in Filter.getFilters()">
             <td>
-                <a ng-click="Filter.select(obj)" href="">{{obj.key}}</a>
+                <a ng-click="Filter.select(obj,$index)" href="">{{obj.key}}</a>
             </td>
             <td>
               <ul class="tree" ng-if="Entities.isAList(obj.field)">

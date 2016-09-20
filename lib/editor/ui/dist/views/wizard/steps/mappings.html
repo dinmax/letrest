@@ -3,17 +3,20 @@
   <h4>This step will let you compose the object that will be asociated to the entity.</h4>
 
   <div class="mappers">
-    <div>
+    <div class="all-check">
+      <input ng-change="EntityWizard.toggleMappings()" ng-model="EntityWizard.toggleMappingsHelper" type="checkbox">
+      <label class="name">ALL</label>
+    </div>
       <table ng-init="EntityWizard.initToggleMappingsHelper();" ng-repeat="(tableName, subset) in EntityWizard.newEntity._mappingByTable">
         <thead>
           <tr>
             <th class="table__title" colspan="3">Table: {{tableName}}</th>
           </tr>
-          <!--FIXME find a better way to select all this by table or by hierarchy-->
-          <tr>
-            <th class="check"><input ng-change="EntityWizard.toggleMappings()" ng-model="EntityWizard.toggleMappingsHelper" type="checkbox"></th>
-            <th class="name">Name</th>
-          </tr>
+          <!--FIXME find a better way to select all this by table or by hierarchy, using tableName-->
+          <!--<tr>-->
+            <!--<th class="check"><input ng-change="EntityWizard.toggleMappings(tableName)" ng-model="EntityWizard.toggleMappingsHelper" type="checkbox"></th>-->
+            <!--<th class="name">Name</th>-->
+          <!--</tr>-->
         </thead>
         <tbody>
           <tr ng-repeat="mapping in subset">
@@ -26,7 +29,6 @@
           </tr>
         </tbody>
       </table>
-    </div>
   </div>
 
 </div>
